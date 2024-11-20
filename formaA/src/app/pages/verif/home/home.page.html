@@ -1,0 +1,127 @@
+<!-- Menu desplegable desde la derecha -->
+
+
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title style="color: white;">Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <ion-list>
+      <!-- Ítem de asistencia con ícono de persona -->
+      <ion-item (click)="verAsistencia()" lines="full">
+        <ion-icon name="person" slot="start" style="margin-right: 10px; color: #3880ff;"></ion-icon>
+        <ion-label>Ver Asistencias</ion-label>
+      </ion-item>
+
+
+      <!-- Ítem de código QR con ícono de QR -->
+      <div *ngIf="user().rol === 'admin'">
+      <ion-item (click)="irAPaginaQR()" lines="full">
+        <ion-icon name="qr-code" slot="start" style="margin-right: 10px; color: #3880ff;"></ion-icon>
+        <ion-label>Ver Código QR</ion-label>
+      </ion-item>
+     </div> 
+            <!-- Ítem de código QR con ícono de QR -->
+      <ion-item (click)="irATomarQR()" lines="full">
+        <ion-icon name="person" slot="start" style="margin-right: 10px; color: #3880ff;"></ion-icon>
+        <ion-label>Tomar Asistencia</ion-label>
+      </ion-item>
+
+
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    Tap the button in the toolbar to open the menu.
+  </ion-content>
+</div>
+
+<!-- Contenido principal de la página -->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- Botón para abrir el menú -->
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content" class="ion-padding">
+
+  <!-- Mensaje de bienvenida -->
+  <div *ngIf="user().rol === 'admin'">
+    <ion-label class="welcome-message" >
+      Bienvenido Profesor {{user().name}}
+    </ion-label>
+   </div>
+
+   <div *ngIf="user().rol != 'admin'">
+    <ion-label class="welcome-message" >
+      Bienvenido {{user().name}}
+    </ion-label>
+   </div> 
+
+
+  <h4></h4>
+  <!-- Card 1 -->
+  <div *ngIf="user().rol === 'admin'">
+    <ion-card style="margin-top: 40px;">
+      <ion-card-header>
+        <ion-card-title style="display: flex; align-items: center;">
+          <!-- Icono de persona -->
+          <ion-icon name="person" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+          Alumnos Registrados
+        </ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Consulta el listado completo de estudiantes que han sido registrados en el sistema.
+        Accede a los detalles de cada uno de ellos y mantén un control actualizado de los datos.
+      </ion-card-content>
+      <ion-button fill="solid" style="margin: 16px;">Ver Alumnos</ion-button>
+    </ion-card>
+  </div>
+
+  <!-- Card 2 -->
+  <div *ngIf="user().rol === 'admin'">
+    <ion-card style="margin-top: 30px;">
+      <ion-card-header>
+        <ion-card-title style="display: flex; align-items: center;">
+        <!-- Icono de libro (Ionicons) -->
+        <ion-icon name="book" style="margin-right: 10px; font-size: 24px;"></ion-icon>
+        Registrar Asistencia
+      </ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        Consulta todas las materias que se encuentran registradas en el sistema.
+        Accede a los detalles de cada una y mantén un control actualizado de los cursos disponibles.
+      </ion-card-content>
+      <ion-button fill="solid" style="margin: 16px;" id="present-alert">Registrar</ion-button>
+      <ion-alert
+        trigger="present-alert"
+        header="Asistencia"
+        [buttons]="alertButtons"
+        [inputs]="alertInputs"
+      ></ion-alert>
+
+    </ion-card>
+    
+  </div>
+ 
+
+</ion-content>
